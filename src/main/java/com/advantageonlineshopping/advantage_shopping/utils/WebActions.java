@@ -1,12 +1,19 @@
 package com.advantageonlineshopping.advantage_shopping.utils;
 
+import java.io.File;
+
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 import com.advantageonlineshopping.advantage_shopping.core.DriverFactory;
+
+import io.cucumber.java.Status;
 
 public class WebActions extends DriverFactory {
 
@@ -54,6 +61,17 @@ public class WebActions extends DriverFactory {
 		WebElement element = findSomeElement(by);
 		Select combo = new Select(element);
 		combo.selectByVisibleText(visibleText);
+	}
+
+	public void screenShot(Status status, String testName) {
+		try {
+			TakesScreenshot fonte = (TakesScreenshot) DriverFactory.createChrome();
+			File fnt = fonte.getScreenshotAs(OutputType.FILE);
+			FileUtils.copyFile(fnt,
+					new File("Evidences" + File.separator + status + File.separator + testName + ".jpg"));
+		} catch (Exception e) {
+			System.out.println("Error in writing file.");
+		}
 	}
 
 }
