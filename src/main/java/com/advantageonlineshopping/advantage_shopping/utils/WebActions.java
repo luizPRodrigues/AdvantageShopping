@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 
 import com.advantageonlineshopping.advantage_shopping.core.DriverFactory;
 
@@ -21,7 +22,7 @@ public class WebActions extends DriverFactory {
 		return driver.findElement(elemento);
 	}
 
-	public void waitUntilelementToBeClickable(By elemento) {
+	public void waitUntilElementToBeClickable(By elemento) {
 		wait.until(ExpectedConditions.elementToBeClickable(elemento));
 	}
 
@@ -47,6 +48,12 @@ public class WebActions extends DriverFactory {
 			sleep(500);
 			findSomeElement(cmp).sendKeys(text);
 		}
+	}
+
+	public static void selectComboByVisibleText(By by, String visibleText) {
+		WebElement element = findSomeElement(by);
+		Select combo = new Select(element);
+		combo.selectByVisibleText(visibleText);
 	}
 
 }
