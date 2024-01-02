@@ -20,6 +20,7 @@ public class CadastroPage {
 	private By cmpPostalCode = By.xpath("//input[@name='postal_codeRegisterPage']");
 	private By bxAgree = By.xpath("//input[@name='i_agree']");
 	private By btnRegister = By.xpath("//*[text()='REGISTER']");
+	private By userNameIcon = By.xpath("//span[@class='hi-user containMiniTitle ng-binding']");
 
 	public By getBtnUser() {
 		return btnUser;
@@ -83,6 +84,14 @@ public class CadastroPage {
 
 	public By getBtnRegister() {
 		return btnRegister;
+	}
+
+	public By getUserNameIcon() {
+		return userNameIcon;
+	}
+
+	public By setUserNameIcon() {
+		return userNameIcon;
 	}
 
 }

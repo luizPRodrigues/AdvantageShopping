@@ -89,11 +89,12 @@ public class Cadastro_Steps {
 
 	@When("I click on the register option")
 	public void iClickOnTheRegisterOption() {
+		cadastroLogic.clickOnRegister();
 	}
 
 	@Then("the final message should be displayed as expected")
 	public void theFinalMessageShouldBeDisplayedAsExpected() {
-
+		cadastroLogic.validateUserCreation();
 	}
 
 }
