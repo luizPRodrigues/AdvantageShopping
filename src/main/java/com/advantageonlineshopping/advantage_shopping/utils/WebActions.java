@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.Select;
 import com.advantageonlineshopping.advantage_shopping.core.DriverFactory;
 
 import io.cucumber.java.Status;
+import static org.junit.Assert.assertEquals;
 
 public class WebActions extends DriverFactory {
 
@@ -49,6 +50,10 @@ public class WebActions extends DriverFactory {
 		wait.until(ExpectedConditions.presenceOfElementLocated(elemento));
 	}
 
+	public static void waitElementBeVisible(By element, Integer tempo) {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+	}
+
 	public static void writeText(String text, By cmp) {
 		if (findSomeElement(cmp).isDisplayed()) {
 			findSomeElement(cmp).clear();
@@ -72,6 +77,14 @@ public class WebActions extends DriverFactory {
 		} catch (Exception e) {
 			System.out.println("Error in writing file.");
 		}
+	}
+
+	public void checkMessage(By element, String expectedessage) {
+		String actualMessage = "";
+
+		waitElementBeVisible(element, 10000);
+		actualMessage = getWebDriver().findElement(element).getText();
+		assertEquals("Error validating message! ", expectedessage, actualMessage);
 	}
 
 }
