@@ -8,7 +8,7 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/java/com/advantageonlineshopping/advantage_shopping/features/ADVS_001_CreateNewAccount.feature",
+        features = "src/test/java/com/advantageonlineshopping/advantage_shopping/features/ADVS_002_login.feature",
         glue = {""},
         plugin = {"pretty", "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
         monochrome = true,
@@ -16,6 +16,6 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
         dryRun = false
         )
 
-public class ADVS_001_CreateNewAccount_Runner {
+public class ADVS_002_Login_Runner {
 
 }
