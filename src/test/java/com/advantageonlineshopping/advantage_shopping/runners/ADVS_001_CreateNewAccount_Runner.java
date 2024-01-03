@@ -10,7 +10,7 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 @CucumberOptions(
         features = "src/test/java/com/advantageonlineshopping/advantage_shopping/features",
         glue = {""},
-        plugin = {"pretty"},
+        plugin = {"pretty", "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE,
         dryRun = false
