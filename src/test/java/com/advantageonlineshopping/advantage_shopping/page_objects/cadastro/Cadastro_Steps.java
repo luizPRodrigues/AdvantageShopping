@@ -12,11 +12,6 @@ public class Cadastro_Steps {
 		cadastroLogic = new Cadastro_Logic();
 	}
 
-	@And("I click on the menu user")
-	public void iClickOnTheMenuUser() {
-		cadastroLogic.clickOnMenuUser();
-	}
-
 	@And("I should find and click on the create new account option")
 	public void iShouldFindAndClickOnTheCreateNewAccountOption() {
 		cadastroLogic.clickOnCreateNewAccount();

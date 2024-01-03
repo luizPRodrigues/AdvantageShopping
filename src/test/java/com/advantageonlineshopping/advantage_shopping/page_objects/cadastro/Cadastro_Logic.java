@@ -1,6 +1,8 @@
 package com.advantageonlineshopping.advantage_shopping.page_objects.cadastro;
 
 import static org.junit.Assert.assertTrue;
+
+import com.advantageonlineshopping.advantage_shopping.page_objects.generics.GenericPage;
 import com.advantageonlineshopping.advantage_shopping.utils.RandomUtils;
 import com.advantageonlineshopping.advantage_shopping.utils.TemporaryTestData;
 import com.advantageonlineshopping.advantage_shopping.utils.WebActions;
@@ -10,16 +12,13 @@ public class Cadastro_Logic extends WebActions {
 	private CadastroPage cadastroPage;
 	private RandomUtils randomUtils;
 	private TemporaryTestData temporaryTestData;
+	private GenericPage genericPage;
 
 	public Cadastro_Logic() {
 		cadastroPage = new CadastroPage();
 		randomUtils = new RandomUtils();
 		temporaryTestData = new TemporaryTestData();
-	}
-
-	public void clickOnMenuUser() {
-		waitUntilElementToBeClickable(cadastroPage.getBtnUser());
-		click(cadastroPage.getBtnUser());
+		genericPage = new GenericPage();
 	}
 
 	public void clickOnCreateNewAccount() {
@@ -103,9 +102,9 @@ public class Cadastro_Logic extends WebActions {
 	}
 
 	public void validateUserCreation() {
-		waitForDesiredElementPresence(cadastroPage.getUserNameIcon());
+		waitForDesiredElementPresence(genericPage.getUserNameIcon());
 
-		String user = driver.findElement(cadastroPage.getUserNameIcon()).getText();
+		String user = driver.findElement(genericPage.getUserNameIcon()).getText();
 		String userData = temporaryTestData.getUser();
 
 		if (!user.isEmpty() && user.contains(userData)) {
