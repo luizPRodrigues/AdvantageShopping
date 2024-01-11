@@ -1,22 +1,37 @@
 package com.advantageonlineshopping.advantage_shopping.utils;
 
 import java.io.File;
-
+import java.time.Duration;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
-
+import org.openqa.selenium.support.ui.WebDriverWait;
 import com.advantageonlineshopping.advantage_shopping.core.DriverFactory;
-
 import io.cucumber.java.Status;
+import lombok.extern.log4j.Log4j2;
 import static org.junit.Assert.assertEquals;
 
+@Log4j2
 public class WebActions extends DriverFactory {
+
+	private static final Integer MEDIUMSECONDS = Time._10.amount();
+	private static final Integer DEFAULTPOLLINGSECONDS = Time._1.amount();
+	private static final Integer DEFAULTTIMEOUTSECONDS = Time._60.amount();
+
+	public void waitUntilLoaderIsNotPresent() {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".PopUp")));
+		wait.until(ExpectedConditions.not(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".PopUp"))));
+	}
 
 	public static WebDriver getWebDriver() {
 		return driver;
@@ -24,6 +39,36 @@ public class WebActions extends DriverFactory {
 
 	public static void click(By element) {
 		findElement(element).click();
+	}
+
+	/**
+	 * Click in element with differents attempts
+	 * 
+	 * @param webElement
+	 */
+	public void clickOnElement(WebElement webElement) {
+		fluentlyWaitUntilClickable(webElement);
+		try {
+			executeJS("arguments[0].click();", webElement);
+		} catch (StaleElementReferenceException ex) {
+			webElement.click();
+		} catch (WebDriverException ex) {
+			WebActions.sleep(MEDIUMSECONDS);
+			webElement.click();
+			log.warn(ex.getMessage());
+		}
+	}
+
+//	/**
+//	 * Execute Java Script
+//	 * 
+//	 * @param cmd
+//	 * @param param
+//	 * @return Object
+//	 */
+	public Object executeJS(String cmd, Object... param) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		return js.executeScript(cmd, param);
 	}
 
 	public static WebElement findElement(By elemento) {
@@ -38,12 +83,19 @@ public class WebActions extends DriverFactory {
 		return driver.findElement(elemento);
 	}
 
-	public static void sleep(int iTimeInMillis) {
+//	/**
+//	 * Sleep thread in seconds
+//	 * 
+//	 * @param seconds
+//	 */
+	public static void sleep(Integer seconds) {
 		try {
-			Thread.sleep(iTimeInMillis);
-		} catch (InterruptedException ex) {
-			ex.printStackTrace();
+			Thread.sleep(seconds * 1000l);
+		} catch (InterruptedException e) {
+			log.error(e.getMessage());
+			Thread.currentThread().interrupt();
 		}
+
 	}
 
 	public void waitForDesiredElementPresence(By elemento) {
@@ -52,6 +104,23 @@ public class WebActions extends DriverFactory {
 
 	public static void waitElementBeVisible(By element, Integer tempo) {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+	}
+
+	/**
+	 * Return WebElement, after fluently wait element to be clickable
+	 * 
+	 * @param element
+	 * @param timeoutInSeconds
+	 * @param pollingInSeconds
+	 * @return WebElement
+	 */
+	private WebElement fluentlyWaitUntilClickable(WebElement element, Integer timeoutInSeconds,
+			Integer pollingInSeconds) {
+		return (new FluentWait<WebDriver>(driver)) //
+				.withTimeout(Duration.ofSeconds(timeoutInSeconds)) //
+				.pollingEvery(Duration.ofSeconds(pollingInSeconds)) //
+				.ignoring(StaleElementReferenceException.class) //
+				.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
 	public static void writeText(String text, By cmp) {
@@ -85,6 +154,42 @@ public class WebActions extends DriverFactory {
 		waitElementBeVisible(element, 10000);
 		actualMessage = getWebDriver().findElement(element).getText();
 		assertEquals("Error validating message! ", expectedessage, actualMessage);
+	}
+
+//	/**
+//	 * Return WebElement, after fluently wait element to be clickable
+//	 * 
+//	 * @param element
+//	 * @return WebElement
+//	 */
+	private WebElement fluentlyWaitUntilClickable(WebElement element) {
+		return fluentlyWaitUntilClickable(element, DEFAULTTIMEOUTSECONDS, DEFAULTPOLLINGSECONDS);
+	}
+
+//
+//	/**
+//	 * Click in element with selenium
+//	 * 
+//	 * @param webElement
+//	 */
+	public void clickSelenium(WebElement webElement) {
+		fluentlyWaitUntilClickable(webElement);
+		webElement.click();
+	}
+
+//	/**
+//	 * Select element by index, after wait until to be clickable
+//	 * 
+//	 * @param element
+//	 * @param index
+//	 */
+	public void selectElementByIndex(WebElement element, Integer index) {
+		try {
+			Select dropdown = new Select(fluentlyWaitUntilClickable(element));
+			dropdown.selectByIndex(index);
+		} catch (Exception ex) {
+			log.error("Error selecting option by index");
+		}
 	}
 
 }

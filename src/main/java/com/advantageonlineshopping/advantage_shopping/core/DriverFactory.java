@@ -8,7 +8,7 @@ public class DriverFactory {
 
 	protected static ChromeDriver driver;
 	protected static WebDriverWait wait;
-	
+
 	public static ChromeDriver createChrome() {
 		if (driver == null) {
 			WebDriverManager.chromedriver().setup();
