@@ -24,4 +24,5 @@ Scenario Outline: ADVS_003_ComprarProduto
 Examples:
   |product                  |paymentMethod|msgFinal                           |
   |HP ENVY X360 - 15T LAPTOP|SafePay      |Thank you for buying with Advantage|
-  |HP ENVY X360 - 15T LAPTOP|MasterCredit |Thank you for buying with Advantage|             
+  |HP ENVY X360 - 15T LAPTOP|MasterCredit |Thank you for buying with Advantage|      
+  
