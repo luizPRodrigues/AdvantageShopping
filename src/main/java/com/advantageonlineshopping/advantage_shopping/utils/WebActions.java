@@ -140,13 +140,20 @@ public class WebActions extends DriverFactory {
 			System.out.println("Error in writing file.");
 		}
 	}
+	
+	/**
+	 * Validated a message 
+	 * 
+	 * @param element
+	 * @param expectedessage
+	 */
 
-	public void checkMessage(By element, String expectedessage) {
+	public void checkMessage(By element, String expectedMessage) {
 		String actualMessage = "";
 
 		waitElementBeVisible(element, 10000);
 		actualMessage = getWebDriver().findElement(element).getText();
-		assertEquals("Error validating message! ", expectedessage, actualMessage);
+		assertEquals("Error validating message! ", expectedMessage, actualMessage);
 	}
 
 //	/**

@@ -4,11 +4,11 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class Cadastro_Steps {
+public class Cadastro_Step {
 
 	private Cadastro_Logic cadastroLogic;
 
-	public Cadastro_Steps() {
+	public Cadastro_Step() {
 		cadastroLogic = new Cadastro_Logic();
 	}
 
