@@ -58,6 +58,8 @@ public class ComprarProdutoLogic extends WebActions {
 				writeText(randomUtils.generateRandomString(6), comprarProdutoPage.getCmpUserPay());
 				waitUntilElementToBeClickable(comprarProdutoPage.getCmpPasswordPay());
 				writeText("userPay", comprarProdutoPage.getCmpPasswordPay());
+				waitUntilElementToBeClickable(comprarProdutoPage.getBtnSafePayNow());
+				click(comprarProdutoPage.getBtnSafePayNow());
 			} else {
 				System.out.println("************************SafePay is already selected.************************");
 				waitUntilElementToBeClickable(comprarProdutoPage.getCmpUserPay());
@@ -82,6 +84,8 @@ public class ComprarProdutoLogic extends WebActions {
 				selectComboByVisibleText(comprarProdutoPage.getOptMonth(), "12");
 				selectComboByVisibleText(comprarProdutoPage.getOptYear(), "2024");
 				writeText("Test Holder Name", comprarProdutoPage.getCmpCardName());
+				waitUntilElementToBeClickable(comprarProdutoPage.getBtnMasterCreditPayNow());
+				click(comprarProdutoPage.getBtnMasterCreditPayNow());
 			} else {
 				System.out.println("************************MasterCredit is already saved.************************");
 				waitUntilElementToBeClickable(comprarProdutoPage.getBtnMasterCreditPayNow());
