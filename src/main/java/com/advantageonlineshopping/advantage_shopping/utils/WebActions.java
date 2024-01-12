@@ -14,7 +14,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import com.advantageonlineshopping.advantage_shopping.core.DriverFactory;
 import io.cucumber.java.Status;
 import lombok.extern.log4j.Log4j2;
@@ -26,12 +25,6 @@ public class WebActions extends DriverFactory {
 	private static final Integer MEDIUMSECONDS = Time._10.amount();
 	private static final Integer DEFAULTPOLLINGSECONDS = Time._1.amount();
 	private static final Integer DEFAULTTIMEOUTSECONDS = Time._60.amount();
-
-	public void waitUntilLoaderIsNotPresent() {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".PopUp")));
-		wait.until(ExpectedConditions.not(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".PopUp"))));
-	}
 
 	public static WebDriver getWebDriver() {
 		return driver;
@@ -126,7 +119,7 @@ public class WebActions extends DriverFactory {
 	public static void writeText(String text, By cmp) {
 		if (findSomeElement(cmp).isDisplayed()) {
 			findSomeElement(cmp).clear();
-			sleep(500);
+			sleep(5);
 			findSomeElement(cmp).sendKeys(text);
 		}
 	}

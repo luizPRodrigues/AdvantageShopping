@@ -32,7 +32,7 @@ public class GenericLogic extends WebActions {
 		try {
 			wait.until(ExpectedConditions.visibilityOf(xpathMessage));
 			System.out.println(msgFinal + "Final message validated successfully.");
-			sleep(66);
+			sleep(5);
 		} catch (Exception e) {
 			System.out.println("Error: Final message validation failed.");
 		}
