@@ -4,15 +4,18 @@ import org.openqa.selenium.WebElement;
 
 import com.advantageonlineshopping.advantage_shopping.utils.RandomUtils;
 import com.advantageonlineshopping.advantage_shopping.utils.WebActions;
+import com.advantageonlineshopping.advantage_shopping.utils.property.DynamicPropertiesManager;
 
 public class ComprarProdutoLogic extends WebActions {
 
 	private ComprarProdutoPage comprarProdutoPage;
 	private RandomUtils randomUtils;
+	private DynamicPropertiesManager dynamic;
 
 	public ComprarProdutoLogic() {
 		comprarProdutoPage = new ComprarProdutoPage();
 		randomUtils = new RandomUtils();
+		dynamic = new DynamicPropertiesManager();
 	}
 
 	public void searchByProduct(String product) {
@@ -97,6 +100,14 @@ public class ComprarProdutoLogic extends WebActions {
 					+ paymentMethod);
 			break;
 		}
+	}
+
+	public void setOrderNumber() {
+		waitElementBeVisible(comprarProdutoPage.getOrderNumber(), 5);
+		System.out.println("************************Set order number on properties************************");
+		String order = getWebDriver().findElement(comprarProdutoPage.getOrderNumber()).getText();
+		dynamic.getInstance().addProperty("orderNumber", order);
+
 	}
 
 }

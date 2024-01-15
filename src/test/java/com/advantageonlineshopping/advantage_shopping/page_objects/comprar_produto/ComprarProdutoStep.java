@@ -44,4 +44,9 @@ public class ComprarProdutoStep {
 		comprarProdutoLogic.choosePaymentMethod(paymentMethod);
 	}
 
+	@And("I set the Order Number")
+	public void setOrderNumber() {
+		comprarProdutoLogic.setOrderNumber();
+	}
+
 }
