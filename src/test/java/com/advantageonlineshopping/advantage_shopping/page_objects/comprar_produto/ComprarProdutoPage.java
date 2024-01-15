@@ -28,6 +28,8 @@ public class ComprarProdutoPage {
 
 	private By btnMasterCreditPayNow = By.cssSelector("#pay_now_btn_MasterCredit");
 
+	private By orderNumber = By.id("orderNumberLabel");
+
 	public By getBtnMenuSearch() {
 		return btnMenuSearch;
 	}
@@ -102,6 +104,10 @@ public class ComprarProdutoPage {
 
 	public By getBtnMasterCreditPayNow() {
 		return btnMasterCreditPayNow;
+	}
+
+	public By getOrderNumber() {
+		return orderNumber;
 	}
 
 }
