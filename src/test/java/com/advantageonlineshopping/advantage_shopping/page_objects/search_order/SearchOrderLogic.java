@@ -28,12 +28,6 @@ public class SearchOrderLogic extends WebActions {
 		clickOnElement(orderClick);
 	}
 
-	public void selectMyOrders() {
-		waitUntilElementToBeClickable(searchOrderPage.getMyOrder());
-		WebElement orderClick = findElement(searchOrderPage.getMyOrder());
-		clickOnElement(orderClick);
-	}
-
 	public void searchOrderNumber() {
 		waitUntilElementToBeClickable(searchOrderPage.getSearch());
 		click(searchOrderPage.getSearch());

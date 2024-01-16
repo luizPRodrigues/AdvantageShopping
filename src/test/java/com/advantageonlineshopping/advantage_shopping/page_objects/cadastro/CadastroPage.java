@@ -19,7 +19,7 @@ public class CadastroPage {
 	private By cmpRegion = By.xpath("//input[@name='state_/_province_/_regionRegisterPage']");
 	private By cmpPostalCode = By.xpath("//input[@name='postal_codeRegisterPage']");
 	private By bxAgree = By.xpath("//input[@name='i_agree']");
-	private By btnRegister = By.xpath("//*[text()='REGISTER']");
+	private By btnRegister = By.id("register_btn");
 
 	public By getBtnCreateAccount() {
 		return btnCreateAccount;

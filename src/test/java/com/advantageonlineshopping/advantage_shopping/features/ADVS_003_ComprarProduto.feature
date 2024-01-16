@@ -25,9 +25,8 @@ Examples:
   |method       |product                  |paymentMethod|msgFinal                           |
   |SafePay      |HP ENVY X360 - 15T LAPTOP|SafePay      |Thank you for buying with Advantage|
   |MasterCredit |HP ENVY X360 - 15T LAPTOP|MasterCredit |Thank you for buying with Advantage|      
-  
+   
 Scenario Outline: ADVS_004_SearchBuyOrder
-  And I click on the menu user log in
   And I click on the menu user log in
   And search my purchased order by Order Number 
   Then I validate the final message with success "<msgFinal>"

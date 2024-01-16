@@ -52,18 +52,6 @@ public class WebActions extends DriverFactory {
 		}
 	}
 
-//	/**
-//	 * Execute Java Script
-//	 * 
-//	 * @param cmd
-//	 * @param param
-//	 * @return Object
-//	 */
-	public Object executeJS(String cmd, Object... param) {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		return js.executeScript(cmd, param);
-	}
-
 	public static WebElement findElement(By elemento) {
 		return driver.findElement(elemento);
 	}
@@ -76,11 +64,11 @@ public class WebActions extends DriverFactory {
 		return driver.findElement(elemento);
 	}
 
-//	/**
-//	 * Sleep thread in seconds
-//	 * 
-//	 * @param seconds
-//	 */
+	/**
+	 * Sleep thread in seconds
+	 * 
+	 * @param seconds
+	 */
 	public static void sleep(Integer seconds) {
 		try {
 			Thread.sleep(seconds * 1000l);
@@ -140,9 +128,9 @@ public class WebActions extends DriverFactory {
 			System.out.println("Error in writing file.");
 		}
 	}
-	
+
 	/**
-	 * Validated a message 
+	 * Validated a message
 	 * 
 	 * @param element
 	 * @param expectedessage
@@ -190,6 +178,38 @@ public class WebActions extends DriverFactory {
 		} catch (Exception ex) {
 			log.error("Error selecting option by index");
 		}
+	}
+
+	// ********************* JS ************************
+
+	/**
+	 * Execute Java Script
+	 * 
+	 * @param cmd
+	 * @param param
+	 * @return Object
+	 */
+	public Object executeJS(String cmd, Object... param) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		return js.executeScript(cmd, param);
+	}
+
+	/**
+	 * Scroll to element
+	 * 
+	 * @param element
+	 */
+	public void scroll(WebElement element) {
+		executeJS("arguments[0].scrollIntoView(true);", element);
+	}
+
+	/**
+	 * Scroll to position
+	 * 
+	 * @param scroll
+	 */
+	public void scroll(int scroll) {
+		executeJS("window.scrollBy(0," + scroll + ")", "");
 	}
 
 }
