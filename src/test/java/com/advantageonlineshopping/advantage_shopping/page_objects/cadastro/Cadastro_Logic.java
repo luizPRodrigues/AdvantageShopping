@@ -6,6 +6,7 @@ import com.advantageonlineshopping.advantage_shopping.page_objects.generics.Gene
 import com.advantageonlineshopping.advantage_shopping.utils.RandomUtils;
 import com.advantageonlineshopping.advantage_shopping.utils.TemporaryTestData;
 import com.advantageonlineshopping.advantage_shopping.utils.WebActions;
+import com.advantageonlineshopping.advantage_shopping.utils.property.DynamicPropertiesManager;
 
 public class Cadastro_Logic extends WebActions {
 
@@ -13,12 +14,14 @@ public class Cadastro_Logic extends WebActions {
 	private RandomUtils randomUtils;
 	private TemporaryTestData temporaryTestData;
 	private GenericPage genericPage;
+	private DynamicPropertiesManager dynamic;
 
 	public Cadastro_Logic() {
 		cadastroPage = new CadastroPage();
 		randomUtils = new RandomUtils();
 		temporaryTestData = new TemporaryTestData();
 		genericPage = new GenericPage();
+		dynamic = new DynamicPropertiesManager();
 	}
 
 	public void clickOnCreateNewAccount() {
@@ -31,6 +34,7 @@ public class Cadastro_Logic extends WebActions {
 		String randomicUser = "test" + randomUtils.generateRandomString(6);
 		writeText(randomicUser, cadastroPage.getCmpUserName());
 		temporaryTestData.setUser(randomicUser);
+		dynamic.getInstance().addProperty("userToDelete", randomicUser);
 	}
 
 	public void insertEmailAdress(String email) {
@@ -43,6 +47,7 @@ public class Cadastro_Logic extends WebActions {
 		String randomicPassword = "P12" + randomUtils.generateRandomString(6);
 		writeText(randomicPassword, cadastroPage.getCmpPassWord());
 		temporaryTestData.setPassword(randomicPassword);
+		dynamic.getInstance().addProperty("passwordToDelete", randomicPassword);
 	}
 
 	public void confirmPassword() {
