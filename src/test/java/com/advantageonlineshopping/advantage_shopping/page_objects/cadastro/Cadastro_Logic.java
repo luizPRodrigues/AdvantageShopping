@@ -7,6 +7,7 @@ import com.advantageonlineshopping.advantage_shopping.utils.RandomUtils;
 import com.advantageonlineshopping.advantage_shopping.utils.TemporaryTestData;
 import com.advantageonlineshopping.advantage_shopping.utils.WebActions;
 import com.advantageonlineshopping.advantage_shopping.utils.property.DynamicPropertiesManager;
+import com.advantageonlineshopping.advantage_shopping.utils.property.Props;
 
 public class Cadastro_Logic extends WebActions {
 
@@ -33,8 +34,9 @@ public class Cadastro_Logic extends WebActions {
 		waitUntilElementToBeClickable(cadastroPage.getCmpUserName());
 		String randomicUser = "test" + randomUtils.generateRandomString(6);
 		writeText(randomicUser, cadastroPage.getCmpUserName());
-		temporaryTestData.setUser(randomicUser);
-		dynamic.getInstance().addProperty("userToDelete", randomicUser);
+		String user = getWebDriver().findElement(cadastroPage.getCmpUserName()).getText();
+		dynamic.getInstance().addProperty(Props.USERDEL, user);
+		
 	}
 
 	public void insertEmailAdress(String email) {
@@ -47,7 +49,8 @@ public class Cadastro_Logic extends WebActions {
 		String randomicPassword = "P12" + randomUtils.generateRandomString(6);
 		writeText(randomicPassword, cadastroPage.getCmpPassWord());
 		temporaryTestData.setPassword(randomicPassword);
-		dynamic.getInstance().addProperty("passwordToDelete", randomicPassword);
+		String password = getWebDriver().findElement(cadastroPage.getCmpPassWord()).getText();
+		dynamic.getInstance().addProperty(Props.PWDDEL, password);
 	}
 
 	public void confirmPassword() {
@@ -110,7 +113,8 @@ public class Cadastro_Logic extends WebActions {
 		waitForDesiredElementPresence(genericPage.getUserNameIcon());
 
 		String user = driver.findElement(genericPage.getUserNameIcon()).getText();
-		String userData = temporaryTestData.getUser();
+//		String userData = temporaryTestData.getUser();
+		String userData = dynamic.getInstance().getProperty(Props.USERDEL);
 
 		if (!user.isEmpty() && user.contains(userData)) {
 			System.out.println("User was created successfully.");

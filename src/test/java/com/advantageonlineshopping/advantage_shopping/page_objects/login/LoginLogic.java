@@ -1,14 +1,11 @@
 package com.advantageonlineshopping.advantage_shopping.page_objects.login;
 
 import static org.junit.Assert.assertTrue;
-
 import com.advantageonlineshopping.advantage_shopping.page_objects.generics.GenericPage;
 import com.advantageonlineshopping.advantage_shopping.utils.WebActions;
-import com.advantageonlineshopping.advantage_shopping.utils.property.ExecutionProperties;
+import com.advantageonlineshopping.advantage_shopping.utils.property.Props;
 
 public class LoginLogic extends WebActions {
-
-	static final ExecutionProperties execution = ExecutionProperties.createChrome();
 
 	private LoginPage loginPage;
 	private GenericPage genericPage;
@@ -20,12 +17,12 @@ public class LoginLogic extends WebActions {
 
 	public void enterUserName() {
 		waitUntilElementToBeClickable(loginPage.getCmpUserName());
-		writeText(execution.getUsername(), loginPage.getCmpUserName());
+		writeText(Props.USERNAME, loginPage.getCmpUserName());
 	}
 
 	public void enterPassWord() {
 		waitUntilElementToBeClickable(loginPage.getCmpPassword());
-		writeText(execution.getPassword(), loginPage.getCmpPassword());
+		writeText(Props.PASSWORD, loginPage.getCmpPassword());
 	}
 
 	public void clickOnSignIn() {
@@ -37,7 +34,7 @@ public class LoginLogic extends WebActions {
 		waitForDesiredElementPresence(genericPage.getUserNameIcon());
 
 		String user = driver.findElement(genericPage.getUserNameIcon()).getText();
-		String userData = execution.getUsername();
+		String userData = Props.USERNAME;
 
 		if (!user.isEmpty() && user.contains(userData)) {
 			System.out.println("The customer successfully logged in.");

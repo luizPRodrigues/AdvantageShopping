@@ -5,6 +5,7 @@ import com.advantageonlineshopping.advantage_shopping.page_objects.generics.Gene
 import com.advantageonlineshopping.advantage_shopping.page_objects.login.LoginPage;
 import com.advantageonlineshopping.advantage_shopping.utils.WebActions;
 import com.advantageonlineshopping.advantage_shopping.utils.property.DynamicPropertiesManager;
+import com.advantageonlineshopping.advantage_shopping.utils.property.Props;
 
 public class DeleteAccountLogic extends WebActions {
 
@@ -22,12 +23,12 @@ public class DeleteAccountLogic extends WebActions {
 
 	public void setMyUsername() {
 		waitUntilElementToBeClickable(loginPage.getCmpUserName());
-		writeText(dynamic.getInstance().getProperty("userToDelete"), loginPage.getCmpUserName());
+		writeText(dynamic.getInstance().getProperty(Props.USERDEL), loginPage.getCmpUserName());
 	}
 
 	public void setMyPassword() {
 		waitUntilElementToBeClickable(loginPage.getCmpPassword());
-		writeText(dynamic.getInstance().getProperty("passwordToDelete"), loginPage.getCmpPassword());
+		writeText(dynamic.getInstance().getProperty(Props.PWDDEL), loginPage.getCmpPassword());
 
 	}
 

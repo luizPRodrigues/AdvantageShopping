@@ -4,11 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.advantageonlineshopping.advantage_shopping.utils.WebActions;
-import com.advantageonlineshopping.advantage_shopping.utils.property.ExecutionProperties;
+import com.advantageonlineshopping.advantage_shopping.utils.property.Props;
 
 public class GenericLogic extends WebActions {
-
-	static final ExecutionProperties execution = ExecutionProperties.createChrome();
 
 	private GenericPage genericPage;
 
@@ -17,7 +15,7 @@ public class GenericLogic extends WebActions {
 	}
 
 	public void navigateToTheHomepageOfTheBanksWebsite() {
-		createChrome().get(execution.getExecutionUrl());
+		createChrome().get(Props.URL);
 	}
 
 	public void clickOnMenuUser() {
