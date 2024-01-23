@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import com.advantageonlineshopping.advantage_shopping.page_objects.generics.GenericPage;
 import com.advantageonlineshopping.advantage_shopping.utils.WebActions;
 import com.advantageonlineshopping.advantage_shopping.utils.property.DynamicPropertiesManager;
+import com.advantageonlineshopping.advantage_shopping.utils.property.Props;
 
 public class SearchOrderLogic extends WebActions {
 
@@ -33,7 +34,7 @@ public class SearchOrderLogic extends WebActions {
 		click(searchOrderPage.getSearch());
 		waitUntilElementToBeClickable(searchOrderPage.getSearchCmp());
 		System.out.println("************************Get order number on properties************************");
-		writeText(dynamic.getInstance().getProperty("orderNumber"), searchOrderPage.getSearchCmp());
+		writeText(dynamic.getInstance().getProperty(Props.ORDERNUM), searchOrderPage.getSearchCmp());
 	}
 
 }

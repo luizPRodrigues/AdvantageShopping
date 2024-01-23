@@ -15,5 +15,5 @@ Feature: ADVS_005_ContactUs
     Then I validate the final message "<msgFinal>" 
 
     Examples: 
-      | category   | product                                        | msgFinal                                    |
-      | Headphones | Beats Studio 2 Over-Ear Matte Black Headphones | Thank you for contacting Advantage support. |
+      | category   | product | msgFinal                                    |
+      | Headphones | Bose    | Thank you for contacting Advantage support. |

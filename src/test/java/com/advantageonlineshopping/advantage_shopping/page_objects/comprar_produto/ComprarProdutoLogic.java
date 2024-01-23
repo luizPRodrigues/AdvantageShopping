@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import com.advantageonlineshopping.advantage_shopping.utils.RandomUtils;
 import com.advantageonlineshopping.advantage_shopping.utils.WebActions;
 import com.advantageonlineshopping.advantage_shopping.utils.property.DynamicPropertiesManager;
+import com.advantageonlineshopping.advantage_shopping.utils.property.Props;
 
 public class ComprarProdutoLogic extends WebActions {
 
@@ -106,7 +107,7 @@ public class ComprarProdutoLogic extends WebActions {
 		waitElementBeVisible(comprarProdutoPage.getOrderNumber(), 5);
 		System.out.println("************************Set order number on properties************************");
 		String order = getWebDriver().findElement(comprarProdutoPage.getOrderNumber()).getText();
-		dynamic.getInstance().addProperty("orderNumber", order);
+		dynamic.getInstance().addProperty(Props.ORDERNUM, order);
 
 	}
 
