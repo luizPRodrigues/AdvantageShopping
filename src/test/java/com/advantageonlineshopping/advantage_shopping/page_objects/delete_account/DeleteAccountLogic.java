@@ -4,31 +4,31 @@ import org.openqa.selenium.WebElement;
 import com.advantageonlineshopping.advantage_shopping.page_objects.generics.GenericPage;
 import com.advantageonlineshopping.advantage_shopping.page_objects.login.LoginPage;
 import com.advantageonlineshopping.advantage_shopping.utils.WebActions;
-import com.advantageonlineshopping.advantage_shopping.utils.property.DynamicPropertiesManager;
+import com.advantageonlineshopping.advantage_shopping.utils.bd.DAO;
 import com.advantageonlineshopping.advantage_shopping.utils.property.Props;
 
 public class DeleteAccountLogic extends WebActions {
 
 	private DeleteAccountPage deleteAccountPage;
-	private DynamicPropertiesManager dynamic;
+	private DAO dao;
 	private LoginPage loginPage;
 	private GenericPage genericPage;
 
 	public DeleteAccountLogic() {
 		deleteAccountPage = new DeleteAccountPage();
 		loginPage = new LoginPage();
-		dynamic = new DynamicPropertiesManager();
+		dao = new DAO();
 		genericPage = new GenericPage();
 	}
 
 	public void setMyUsername() {
 		waitUntilElementToBeClickable(loginPage.getCmpUserName());
-		writeText(dynamic.getInstance().getProperty(Props.USERDEL), loginPage.getCmpUserName());
+		writeText(dao.readData(1, Props.USERCOLUMN, String.class), loginPage.getCmpUserName());
 	}
 
 	public void setMyPassword() {
 		waitUntilElementToBeClickable(loginPage.getCmpPassword());
-		writeText(dynamic.getInstance().getProperty(Props.PWDDEL), loginPage.getCmpPassword());
+		writeText(dao.readData(2, Props.PASSWORDCOLUMN, String.class), loginPage.getCmpPassword());
 
 	}
 
@@ -36,10 +36,14 @@ public class DeleteAccountLogic extends WebActions {
 		waitUntilElementToBeClickable(genericPage.getBtnUser());
 		WebElement userClick = findElement(genericPage.getBtnUser());
 		clickOnElement(userClick);
-
-		waitUntilElementToBeClickable(deleteAccountPage.getMyAccount());
-		WebElement myAccount = findElement(deleteAccountPage.getMyAccount());
-		clickOnElement(myAccount);
+		try {
+			waitUntilElementToBeClickable(deleteAccountPage.getMyAccount());
+			WebElement myAccount = findElement(deleteAccountPage.getMyAccount());
+			clickOnElement(myAccount);
+		} catch (Exception e) {
+			System.out.println("button to select account doesn't visible");
+			dao.truncateTable(Props.USERTABLE);
+		}
 
 	}
 
@@ -62,6 +66,7 @@ public class DeleteAccountLogic extends WebActions {
 	public void deleteAccount() {
 		clickOnDeleteAccount();
 		acceptAlertDeleteAccount();
+		dao.truncateTable(Props.USERTABLE);
 	}
 
 }
