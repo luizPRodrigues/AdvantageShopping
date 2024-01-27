@@ -4,25 +4,22 @@ import static org.junit.Assert.assertTrue;
 
 import com.advantageonlineshopping.advantage_shopping.page_objects.generics.GenericPage;
 import com.advantageonlineshopping.advantage_shopping.utils.RandomUtils;
-import com.advantageonlineshopping.advantage_shopping.utils.TemporaryTestData;
 import com.advantageonlineshopping.advantage_shopping.utils.WebActions;
-import com.advantageonlineshopping.advantage_shopping.utils.property.DynamicPropertiesManager;
+import com.advantageonlineshopping.advantage_shopping.utils.bd.DAO;
 import com.advantageonlineshopping.advantage_shopping.utils.property.Props;
 
 public class Cadastro_Logic extends WebActions {
 
 	private CadastroPage cadastroPage;
 	private RandomUtils randomUtils;
-	private TemporaryTestData temporaryTestData;
 	private GenericPage genericPage;
-	private DynamicPropertiesManager dynamic;
+	private DAO dao;
 
 	public Cadastro_Logic() {
 		cadastroPage = new CadastroPage();
 		randomUtils = new RandomUtils();
-		temporaryTestData = new TemporaryTestData();
 		genericPage = new GenericPage();
-		dynamic = new DynamicPropertiesManager();
+		dao = new DAO();
 	}
 
 	public void clickOnCreateNewAccount() {
@@ -34,9 +31,8 @@ public class Cadastro_Logic extends WebActions {
 		waitUntilElementToBeClickable(cadastroPage.getCmpUserName());
 		String randomicUser = "test" + randomUtils.generateRandomString(6);
 		writeText(randomicUser, cadastroPage.getCmpUserName());
-		String user = getWebDriver().findElement(cadastroPage.getCmpUserName()).getText();
-		dynamic.getInstance().addProperty(Props.USERDEL, user);
-		
+		dao.createData(randomicUser, null, null);
+
 	}
 
 	public void insertEmailAdress(String email) {
@@ -48,14 +44,12 @@ public class Cadastro_Logic extends WebActions {
 		waitUntilElementToBeClickable(cadastroPage.getCmpPassWord());
 		String randomicPassword = "P12" + randomUtils.generateRandomString(6);
 		writeText(randomicPassword, cadastroPage.getCmpPassWord());
-		temporaryTestData.setPassword(randomicPassword);
-		String password = getWebDriver().findElement(cadastroPage.getCmpPassWord()).getText();
-		dynamic.getInstance().addProperty(Props.PWDDEL, password);
+		dao.createData(null, randomicPassword, null);
 	}
 
 	public void confirmPassword() {
 		waitUntilElementToBeClickable(cadastroPage.getCmpConfirmPassWord());
-		writeText(temporaryTestData.getPassword(), cadastroPage.getCmpConfirmPassWord());
+		writeText(dao.readData(2, Props.PASSWORDCOLUMN, String.class), cadastroPage.getCmpConfirmPassWord());
 	}
 
 	public void insertFirstName(String fName) {
@@ -113,8 +107,7 @@ public class Cadastro_Logic extends WebActions {
 		waitForDesiredElementPresence(genericPage.getUserNameIcon());
 
 		String user = driver.findElement(genericPage.getUserNameIcon()).getText();
-//		String userData = temporaryTestData.getUser();
-		String userData = dynamic.getInstance().getProperty(Props.USERDEL);
+		String userData = dao.readData(1, Props.USERCOLUMN, String.class);
 
 		if (!user.isEmpty() && user.contains(userData)) {
 			System.out.println("User was created successfully.");
@@ -122,6 +115,7 @@ public class Cadastro_Logic extends WebActions {
 		} else {
 			System.out.println("The message of created user is either empty or doesn't match the expected data.");
 			assertTrue(false);
+			dao.truncateTable(Props.USERTABLE);
 		}
 	}
 }

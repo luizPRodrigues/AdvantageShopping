@@ -6,8 +6,12 @@ public class Props {
 	public static final String URL = applicationProperties.getProps().getProperty("url");
 	public static final String USERNAME = applicationProperties.getProps().getProperty("username");
 	public static final String PASSWORD = applicationProperties.getProps().getProperty("password");
-	public static final String ORDERNUM = applicationProperties.getProps().getProperty("orderNumber");
-	public static final String USERDEL = applicationProperties.getProps().getProperty("userToDelete");
-	public static final String PWDDEL = applicationProperties.getProps().getProperty("passwordToDelete");
+	public static final String URL_DB = applicationProperties.getProps().getProperty("urlDb");
+	public static final String USER_DB = applicationProperties.getProps().getProperty("userDb");
+	public static final String PASSWORD_DB = applicationProperties.getProps().getProperty("passwordDb");
+	public static final String USERCOLUMN = applicationProperties.getProps().getProperty("userColumn");
+	public static final String PASSWORDCOLUMN = applicationProperties.getProps().getProperty("passwordColumn");
+	public static final String ORDERNUMCOLUMN = applicationProperties.getProps().getProperty("orderNumberColumn");
+	public static final String USERTABLE = applicationProperties.getProps().getProperty("tableName");
 
 }
